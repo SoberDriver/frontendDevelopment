@@ -8,51 +8,58 @@
     <link rel="stylesheet" href="styles/sheetStyle.css">
 </head>
 <body>
-    <img src="imgs/1000-7.jpg" id="tokyo" hidden>
-    <h1>Hello there!</h1>
-    <h2>I want to present you my first JS soft - calculator uWu!</h2>
-    
+    <header>
+        <h1>Hello there!</h1>
+        <h2>I want to present you my first JS soft - calculator uWu!</h2>
+    </header>
+    <main>
+        <img src="imgs/1000-7.jpg" id="tokyo" hidden>
+        <section class="main_section">
+            <div class="text_fields">
+                <textarea class="textarea" id="textarea" rows="3" disabled></textarea>
+                <input class="input_field" id="input_field" rows placeholder="throw some numbers...">
+            </div>
+            <div class="first_row">
+                <button class="operation percent_button" value="%" id="%">%</button>
+                <button class="factorial" value="!" id="!">!</button>
+                <button class="clear" value="clear" id="clear">clear</button>
+                <button class="delete" value="delete" id="delete">delete</button>
+            </div>
+            <div class="second_row">
+                <button class="fraction_button" value="1/x" id="1/x"><sup>1</sup>/x</button>
+                <button class="power_button" value="x^2" id="x^2">x<sup>2</sup></button>
+                <button class="root_button" value="root" id="root">&#8730x</button>
+                <button class="operation division_button" value="/" id="/">&#247</button>
+            </div> 
+            <div class="third_row">
+                <button class="number" value="7" id="7">7</button>
+                <button class="number" value="8" id="8">8</button>
+                <button class="number" value="9" id="9">9</button>
+                <button class="operation mult_button" value="x" id="x">x</button>
+            </div>
+            <div class="fourth_row">
+                <button class="number" value="4" id="4">4</button>
+                <button class="number" value="5" id="5">5</button>
+                <button class="number" value="6" id="6">6</button>
+                <button class="operation minus_button" value="-" id="-">-</button>
+            </div>
+            <div class="fifth_row">
+                <button class="number" value="1" id="1">1</button>
+                <button class="number" value="2" id="2">2</button>
+                <button class="number" value="3" id="3">3</button>
+                <button class="operation plus_button" value="+" id="+">+</button>
+            </div>
+            <div class="sixth_row">
+                <button class="reverse_button" value="+/-" id="+/-">+/-</button>
+                <button class="number" value="0" id="0">0</button>
+                <button class="number" value="." id=".">.</button>
+                <button class="equation_button" value="=" id="=">=</button>
+            </div>
+        </section>
+    </main>
+    <footer>
 
-    <section class="main_section">
-        <textarea class="textarea" id="textarea" rows="3" disabled></textarea>
-        <input class="input_field" id="input_field" rows placeholder="throw some numbers...">
-        <div class="first_row">
-            <button class="operation percent_button" value="%" id="%">%</button>
-            <button class="factorial" value="!" id="!">!</button>
-            <button class="clear" value="clear" id="clear">clear</button>
-            <button class="delete" value="delete" id="delete">delete</button>
-        </div>
-        <div class="second_row">
-            <button class="fraction_button" value="1/x" id="1/x">1/x</button>
-            <button class="power_button" value="x^2" id="x^2">x^2</button>
-            <button class="root_button" value="root" id="root">&#8730x</button>
-            <button class="operation division_button" value="/" id="/">&#247</button>
-        </div> 
-        <div class="third_row">
-            <button class="number" value="7" id="7">7</button>
-            <button class="number" value="8" id="8">8</button>
-            <button class="number" value="9" id="9">9</button>
-            <button class="operation mult_button" value="x" id="x">x</button>
-        </div>
-        <div class="fourth_row">
-            <button class="number" value="4" id="4">4</button>
-            <button class="number" value="5" id="5">5</button>
-            <button class="number" value="6" id="6">6</button>
-            <button class="operation minus_button" value="-" id="-">-</button>
-        </div>
-        <div class="fifth_row">
-            <button class="number" value="1" id="1">1</button>
-            <button class="number" value="2" id="2">2</button>
-            <button class="number" value="3" id="3">3</button>
-            <button class="operation plus_button" value="+" id="+">+</button>
-        </div>
-        <div class="sixth_row">
-            <button class="reverse_button" value="+/-" id="+/-">+/-</button>
-            <button class="number" value="0" id="0">0</button>
-            <button class="number" value="." id=".">.</button>
-            <button class="equation_button" value="=" id="=">=</button>
-        </div>
-    </section>
+    </footer>
     <script src="js/mainScript.js"></script>
 </body>
 </html>

@@ -72,7 +72,7 @@ function modifyText(text) {
 }
 
 function modifyArea(text, operation) {
-    textArea.value += `${text} \n${operation}\n`;
+    textArea.value += `${text} ${operation} `;
 }
 
 function deleteText() {
@@ -172,7 +172,7 @@ function showGhoul() {
     image.removeAttribute("hidden");
     setTimeout(() => {
         hide();
-    }, 40);
+    }, 80);
 }
 function hide() {
     image.setAttribute("hidden", true);
