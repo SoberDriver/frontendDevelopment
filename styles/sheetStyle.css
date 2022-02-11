@@ -11,3 +11,7 @@ button {
     margin-left: auto;
     margin-right: auto;
 }
+.textarea {
+    width: 200px;
+    height: 200px;
+}
