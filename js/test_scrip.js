@@ -30,3 +30,30 @@ decr--;
 
 console.log(icr);
 console.log(decr);
+
+// lesson 26
+
+//to Boolean
+
+//1) 
+let switcher = '';
+
+if (switcher) {
+    console.log('Working');
+}
+
+switcher = 1;
+
+if (switcher) {
+    console.log('Working');
+}
+
+//2)
+console.log(typeof(Boolean('4')));
+
+//3) 
+console.log(typeof(!!'11'));
+
+console.log(1 && 2);
+
+//Lesson31 
