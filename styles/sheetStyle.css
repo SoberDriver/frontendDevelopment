@@ -1,14 +1,22 @@
-body {
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-size: larger;
     background: radial-gradient(rgb(5, 134, 219), blue);
 }
 main {
-    block-size: fit-content;
     display: flex;
     justify-content: center;
 }
-/* :root {
-    font-size: 100%;
-} */
+section {
+    margin: 0;
+    padding: 0;
+    border: 2px solid;
+    border-radius: 5px;
+    background:rgb(29, 31, 47)
+}
+
 h1, h2 {
     text-align: center;
     color: aliceblue;
@@ -17,14 +25,15 @@ h1, h2 {
     display: grid;
 }
 button {
-    border: 1px solid;
+    border: 2px solid;
     font-family: "Lucida" Grande, sans-serif;
+    font-size: 150%;
     border-radius: 5px;
     background: rgb(29, 31, 47);
-    width: 55px; 
-    height: 35px;
+    width: 100%; 
+    height: 70px;
     margin: 0px;
-    color: white;
+    color: rgb(240, 237, 243);
     align-items:center;
 }
 button.number {
@@ -34,27 +43,32 @@ button.reverse_button {
     background: rgb(38, 41, 61);
 }
 button:hover {
-    background:rgb(16, 119, 187);
+    background:rgb(29, 136, 207);
+    color:rgb(62, 66, 93);
 }
 .textarea {
     border-radius: 5px;
     font-family: "Lucida" Grande, sans-serif;
     font-weight: 600;
     font-size: 200%;
-    width: 214px;
-    height: 200px;
+    width: auto;
+    height: auto;
     text-align: right;
     color: white;
     background: rgb(29, 31, 47);
     resize: none;
+    min-height: 300px;
 }
 .input_field {
     border-radius: 5px;
     border: 1px solid;
-    width: 214px;
+    width: auto;
     background: rgb(29, 31, 47);
     color: white;
+    height: 30px;
+    font-size: 90%;
 }
 div {
     display: flex;
+    width: auto;
 }

@@ -105,7 +105,7 @@ function equation(secondValue) {
     operation = null;
 }
 /**
- *Math functions
+ * Math functions
  */
 function summ(a, b) {
     result = parseFloat(a) + parseFloat(b);
