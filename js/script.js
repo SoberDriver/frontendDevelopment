@@ -1,74 +1,143 @@
-"use strict";
+window.addEventListener('DOMContentLoaded', function() {
 
-const personalMovieDB = {
-    count: 0,
-    movies: {},
-    actors: {},
-    genres: [],
-    privat: false,
-    start: () => {
-        personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?', '');
+    // Tabs
 
-        while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count)) {
-            personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?', '');
-        }
-    },
-    rememberMyFilms: () => {
-        for (let i = 0; i < 2; i++) {
-            const c = prompt('Один из последних просмотренных фильмов?', ''),
-                d = prompt('На сколько оцените его?', '');
-    
-            if (c != null && d != null && c != '' && d != '' && c.length < 50 && d.length < 50) {
-                personalMovieDB.movies[c] = d;
-            } else {
-                i--;
-            }
-        }
-    },
-    detectPersonalLevel: () => {
-        if (personalMovieDB.count < 10) {
-            console.log('Просмотрено мало фильмов');
-        } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
-            console.log('Вы классический зритель');
-        } else if (personalMovieDB.count >= 30) {
-            console.log('Вы киноман');
-        } else {
-            console.log('Произошла ошибка');
-        }
-    },
-    showMyDB: (hidden) => {
-        if (!hidden) {
-            console.log(personalMovieDB);
-        }
-    },
-    writeYourGenres: () => {
-        
-        for (let i = 1; i < 4; i++) {
-            let genreName = prompt(`Ваш любимый жанр под номером ${i}`, '');
-            if (genreName === '' || genreName == null) {
-                i--;
-            } else {
-                personalMovieDB.genres[i - 1] = genreName;
-                
-            }
-        }
-        personalMovieDB.genres.forEach(element => {
-            console.log(`Любимый жанр #${personalMovieDB.genres.indexOf(element) + 1} - это ${element}`);
+	let tabs = document.querySelectorAll('.tabheader__item'),
+		tabsContent = document.querySelectorAll('.tabcontent'),
+		tabsParent = document.querySelector('.tabheader__items');
+
+	function hideTabContent() {
+
+        tabsContent.forEach(item => {
+            item.classList.add('hide');
+            item.classList.remove('show', 'fade');
         });
-    },
-    toggleVisibleMyDB: () => {
-        if (personalMovieDB.privat) {
-            personalMovieDB.privat = false;
+
+        tabs.forEach(item => {
+            item.classList.remove('tabheader__item_active');
+        });
+	}
+
+	function showTabContent(i = 0) {
+        tabsContent[i].classList.add('show', 'fade');
+        tabsContent[i].classList.remove('hide');
+        tabs[i].classList.add('tabheader__item_active');
+    }
+
+    hideTabContent();
+    showTabContent();
+
+	tabsParent.addEventListener('click', function(event) {
+		const target = event.target;
+		if(target && target.classList.contains('tabheader__item')) {
+            tabs.forEach((item, i) => {
+                if (target == item) {
+                    hideTabContent();
+                    showTabContent(i);
+                }
+            });
+		}
+    });
+
+    // Timer
+
+    const deadline = '2020-05-11';
+
+    function getTimeRemaining(endtime) {
+        const t = Date.parse(endtime) - Date.parse(new Date()),
+            days = Math.floor( (t/(1000*60*60*24)) ),
+            seconds = Math.floor( (t/1000) % 60 ),
+            minutes = Math.floor( (t/1000/60) % 60 ),
+            hours = Math.floor( (t/(1000*60*60) % 24) );
+
+        return {
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    }
+
+    function getZero(num){
+        if (num >= 0 && num < 10) { 
+            return '0' + num;
         } else {
-            personalMovieDB.privat = true;
+            return num;
         }
     }
-};
 
+    function setClock(selector, endtime) {
 
-// personalMovieDB.start();
-// personalMovieDB.rememberMyFilms();
-// personalMovieDB.detectPersonalLevel();
-personalMovieDB.writeYourGenres();
-personalMovieDB.showMyDB(personalMovieDB.privat);
-personalMovieDB.toggleVisibleMyDB();
+        const timer = document.querySelector(selector),
+            days = timer.querySelector("#days"),
+            hours = timer.querySelector('#hours'),
+            minutes = timer.querySelector('#minutes'),
+            seconds = timer.querySelector('#seconds'),
+            timeInterval = setInterval(updateClock, 1000);
+
+        updateClock();
+
+        function updateClock() {
+            const t = getTimeRemaining(endtime);
+
+            days.innerHTML = getZero(t.days);
+            hours.innerHTML = getZero(t.hours);
+            minutes.innerHTML = getZero(t.minutes);
+            seconds.innerHTML = getZero(t.seconds);
+
+            if (t.total <= 0) {
+                clearInterval(timeInterval);
+            }
+        }
+    }
+
+    setClock('.timer', deadline);
+
+    // Modal
+
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+        modal = document.querySelector('.modal'),
+        modalCloseBtn = document.querySelector('[data-close]');
+
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', openModal);
+    });
+
+    function closeModal() {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    function openModal() {
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
+        clearInterval(modalTimerId);
+    }
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === "Escape" && modal.classList.contains('show')) { 
+            closeModal();
+        }
+    });
+
+    const modalTimerId = setTimeout(openModal, 3000);
+
+    function showModalByScroll() {
+        if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+            openModal();
+            window.removeEventListener('scroll', showModalByScroll);
+        }
+    }
+    window.addEventListener('scroll', showModalByScroll);
+}); 
