@@ -39,6 +39,14 @@ window.addEventListener('DOMContentLoaded', function() {
 		}
     });
 
+    // Slider
+
+    // let slider = document.querySelectorAll(".offer__slider-counter"),
+    //     sliderContent = document.querySelectorAll(".offer__slide");
+
+    // function hideSlides() {
+
+    // }
     // Timer
 
     const deadline = '2022-05-07';
@@ -114,7 +122,7 @@ window.addEventListener('DOMContentLoaded', function() {
         modal.classList.add('show');
         modal.classList.remove('hide');
         document.body.style.overflow = 'hidden';
-        clearInterval(modalTimerId);
+        // clearInterval(modalTimerId);
     }
 
     modalCloseBtn.addEventListener('click', closeModal);
@@ -213,4 +221,57 @@ window.addEventListener('DOMContentLoaded', function() {
         ".menu .container",
         "menu__item"
     ).render();
+
+    //Forms
+
+    const forms = document.querySelectorAll("form");
+
+    const message = {
+        loading: "Loading...",
+        success: "Success, we got it!",
+        failure: "Something went wrong..."
+    };
+
+    forms.forEach(item => {
+        postData(item);
+    });
+
+    function postData(form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const statusMessage = document.createElement("div");
+            statusMessage.classList.add("status");
+            statusMessage.textContent = message.loading;
+            form.append(statusMessage);
+
+            const request = new XMLHttpRequest();
+            request.open("POST", "server.php");
+
+            request.setRequestHeader("Content-type", "application/json");
+            const formData = new FormData(form);
+
+            const object = {};
+            formData.forEach(function(value, key) {
+                object[key] = value;
+            });
+
+            const json = JSON.stringify(object);
+
+            request.send(json);
+            request.addEventListener("load", () => {
+                if (request.status === 200) {
+                    console.log(request.response);
+                    statusMessage.textContext = message.success;
+                    console.log(statusMessage.textContext);
+                    form.reset();
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 2000);
+                } else {
+                    statusMessage.textContext = message.failure;
+                }
+            });
+        });
+    }
 }); 
